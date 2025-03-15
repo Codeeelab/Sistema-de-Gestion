@@ -12,6 +12,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script defer src="./js/main.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
+
 </head>
 <body class="admin-page">
     <div class="theme-toggle">
@@ -452,6 +456,57 @@
     </div>
     
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <div id="carritos"></div>
+
+    <script>
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "TU_AUTH_DOMAIN",
+            projectId: "TU_PROJECT_ID",
+            storageBucket: "TU_STORAGE_BUCKET",
+            messagingSenderId: "TU_MESSAGING_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+
+        // Inicializar Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(app);
+
+        // Mostrar los carritos y botones para cambiar estado
+        const carritosDiv = document.getElementById("carritos");
+
+        db.collection("carritos").onSnapshot((snapshot) => {
+            carritosDiv.innerHTML = "";
+            snapshot.forEach((doc) => {
+                const carrito = doc.id;
+                const estado = doc.data().estado;
+
+                const div = document.createElement("div");
+                div.textContent = `${carrito} - Estado: ${estado}`;
+
+                const btnLibre = document.createElement("button");
+                btnLibre.textContent = "Marcar Libre";
+                btnLibre.onclick = () => actualizarEstado(carrito, "Libre");
+
+                const btnOcupado = document.createElement("button");
+                btnOcupado.textContent = "Marcar Ocupado";
+                btnOcupado.onclick = () => actualizarEstado(carrito, "Ocupado");
+
+                div.appendChild(btnLibre);
+                div.appendChild(btnOcupado);
+                carritosDiv.appendChild(div);
+            });
+        });
+
+        // Función para actualizar el estado del carrito
+        function actualizarEstado(carritoId, nuevoEstado) {
+            db.collection("carritos").doc(carritoId).update({ estado: nuevoEstado })
+                .then(() => alert(`Carrito ${carritoId} marcado como ${nuevoEstado}`))
+                .catch((error) => console.error("Error al actualizar: ", error));
+        }
+    </script>
+
 </body>
 </html>
 

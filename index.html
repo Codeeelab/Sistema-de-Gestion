@@ -11,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
     <script defer src="./js/main.js"></script>
 </head>
 <body>
@@ -116,6 +119,7 @@
                     <div class="carrito-inner">
                         <div class="carrito-front">
                             <div class="carrito-header">
+                               
                                 <div class="carrito-numero">Carrito 1</div>
                                 <div class="status-badge">
                                     <span class="estado">Libre</span>
@@ -350,7 +354,37 @@
             </div>
         </footer>
     </div>
-    
+    <div id="carritos"></div>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "TU_AUTH_DOMAIN",
+            projectId: "TU_PROJECT_ID",
+            storageBucket: "TU_STORAGE_BUCKET",
+            messagingSenderId: "TU_MESSAGING_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+
+        // Inicializar Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(app);
+
+        // Mostrar el estado de los carritos
+        const carritosDiv = document.getElementById("carritos");
+
+        db.collection("carritos").onSnapshot((snapshot) => {
+            carritosDiv.innerHTML = ""; // Limpiar para actualizar
+            snapshot.forEach((doc) => {
+                const carrito = doc.id;
+                const estado = doc.data().estado;
+
+                const p = document.createElement("p");
+                p.textContent = `${carrito}: ${estado}`;
+                carritosDiv.appendChild(p);
+            });
+        });
+    </script>
 </body>
 </html>
