@@ -1,5 +1,12 @@
 // main.js: Lógica de interacción y almacenamiento local mejorada
 
+db.collection("carritos").onSnapshot((snapshot) => {
+    snapshot.docs.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+    });
+});
+
+
 // Declarar particlesJS y gsap para evitar errores de "undeclared"
 let particlesJS, gsap;
 
