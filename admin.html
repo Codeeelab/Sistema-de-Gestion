@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es" class="light-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Carritos</title>
+    <link rel="stylesheet" href="./css/estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script defer src="./js/main.js"></script>
+</head>
+<body class="admin-page">
+    <div class="theme-toggle">
+        <button id="theme-switch" aria-label="Cambiar tema">
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+    </div>
+
+    <div class="particles-container">
+        <div id="particles-js"></div>
+    </div>
+    
+    <div class="app-container">
+        <div class="glass-panel">
+            <div class="header animate__animated animate__fadeInDown">
+                <div class="logo">
+                    <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_ysas4vcp.json" background="transparent" speed="1" style="width: 60px; height: 60px;" loop autoplay></lottie-player>
+                    <h1>Administración de Carritos</h1>
+                </div>
+                <div class="header-line"></div>
+            </div>
+            
+            <div class="dashboard-stats animate__animated animate__fadeIn animate__delay-1s">
+                <div class="stat-card">
+                    <div class="stat-icon libre">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Disponibles</h3>
+                        <p class="stat-count" id="count-disponibles">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon reservado">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 6v6l4 2"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Reservados</h3>
+                        <p class="stat-count" id="count-reservados">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon ocupado">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <path d="M12 8v4"></path>
+                            <path d="M12 16h.01"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Ocupados</h3>
+                        <p class="stat-count" id="count-ocupados">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon total">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total</h3>
+                        <p class="stat-count">6</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-title animate__animated animate__fadeIn animate__delay-1s">
+                <h2>Gestión de Carritos</h2>
+                <div class="search-filter">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="todos">Todos</button>
+                        <button class="filter-btn" data-filter="libre">Disponibles</button>
+                        <button class="filter-btn" data-filter="reservado">Reservados</button>
+                        <button class="filter-btn" data-filter="ocupado">Ocupados</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="gestion-carritos" class="carritos-grid animate__animated animate__fadeIn animate__delay-2s">
+                <div class="carrito-admin" data-id="1" data-status="libre">
+                    <div class="carrito-inner">
+                        <div class="carrito-front">
+                            <div class="carrito-header">
+                                <div class="carrito-numero">Carrito 1</div>
+                                <div class="status-badge">
+                                    <span class="estado">Libre</span>
+                                </div>
+                            </div>
+                            <div class="carrito-content">
+                                <div class="carrito-icon">
+                                    <svg class="icon-libre" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3.6 3.6h16.8a1.2 1.2 0 0 1 1.2 1.2v10.8a1.2 1.2 0 0 1-1.2 1.2H3.6a1.2 1.2 0 0 1-1.2-1.2V4.8a1.2 1.2 0 0 1 1.2-1.2z"></path>
+                                        <path d="M12 18.6v2.4"></path>
+                                        <path d="M8.4 21h7.2"></path>
+                                    </svg>
+                                </div>
+                                <div class="carrito-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Estado:</span>
+                                        <span class="detail-value estado-text">Disponible</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Última actualización:</span>
+                                        <span class="detail-value">Ahora</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="admin-buttons">
+                                <button class="cambiar-estado" data-action="ocupar">
+                                    <span class="btn-text">Marcar como Ocupado</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                        <path d="M12 8v4"></path>
+                                        <path d="M12 16h.01"></path>
+                                    </svg>
+                                </button>
+                                <button class="cambiar-estado reservar" data-action="reservar">
+                                    <span class="btn-text">Reservar</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M12 6v6l4 2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carrito-admin" data-id="2" data-status="libre">
+                    <div class="carrito-inner">
+                        <div class="carrito-front">
+                            <div class="carrito-header">
+                                <div class="carrito-numero">Carrito 2</div>
+                                <div class="status-badge">
+                                    <span class="estado">Libre</span>
+                                </div>
+                            </div>
+                            <div class="carrito-content">
+                                <div class="carrito-icon">
+                                    <svg class="icon-libre" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3.6 3.6h16.8a1.2 1.2 0 0 1 1.2 1.2v10.8a1.2 1.2 0 0 1-1.2 1.2H3.6a1.2 1.2 0 0 1-1.2-1.2V4.8a1.2 1.2 0 0 1 1.2-1.2z"></path>
+                                        <path d="M12 18.6v2.4"></path>
+                                        <path d="M8.4 21h7.2"></path>
+                                    </svg>
+                                </div>
+                                <div class="carrito-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Estado:</span>
+                                        <span class="detail-value estado-text">Disponible</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Última actualización:</span>
+                                        <span class="detail-value">Ahora</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="admin-buttons">
+                                <button class="cambiar-estado" data-action="ocupar">
+                                    <span class="btn-text">Marcar como Ocupado</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                        <path d="M12 8v4"></path>
+                                        <path d="M12 16h.01"></path>
+                                    </svg>
+                                </button>
+                                <button class="cambiar-estado reservar" data-action="reservar">
+                                    <span class="btn-text">Reservar</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M12 6v6l4 2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carrito-admin" data-id="3" data-status="libre">
+                    <div class="carrito-inner">
+                        <div class="carrito-front">
+                            <div class="carrito-header">
+                                <div class="carrito-numero">Carrito 3</div>
+                                <div class="status-badge">
+                                    <span class="estado">Libre</span>
+                                </div>
+                            </div>
+                            <div class="carrito-content">
+                                <div class="carrito-icon">
+                                    <svg class="icon-libre" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3.6 3.6h16.8a1.2 1.2 0 0 1 1.2 1.2v10.8a1.2 1.2 0 0 1-1.2 1.2H3.6a1.2 1.2 0 0 1-1.2-1.2V4.8a1.2 1.2 0 0 1 1.2-1.2z"></path>
+                                        <path d="M12 18.6v2.4"></path>
+                                        <path d="M8.4 21h7.2"></path>
+                                    </svg>
+                                </div>
+                                <div class="carrito-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Estado:</span>
+                                        <span class="detail-value estado-text">Disponible</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Última actualización:</span>
+                                        <span class="detail-value">Ahora</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="admin-buttons">
+                                <button class="cambiar-estado" data-action="ocupar">
+                                    <span class="btn-text">Marcar como Ocupado</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                        <path d="M12 8v4"></path>
+                                        <path d="M12 16h.01"></path>
+                                    </svg>
+                                </button>
+                                <button class="cambiar-estado reservar" data-action="reservar">
+                                    <span class="btn-text">Reservar</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M12 6v6l4 2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carrito-admin" data-id="4" data-status="libre">
+                    <div class="carrito-inner">
+                        <div class="carrito-front">
+                            <div class="carrito-header">
+                                <div class="carrito-numero">Carrito 4</div>
+                                <div class="status-badge">
+                                    <span class="estado">Libre</span>
+                                </div>
+                            </div>
+                            <div class="carrito-content">
+                                <div class="carrito-icon">
+                                    <svg class="icon-libre" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3.6 3.6h16.8a1.2 1.2 0 0 1 1.2 1.2v10.8a1.2 1.2 0 0 1-1.2 1.2H3.6a1.2 1.2 0 0 1-1.2-1.2V4.8a1.2 1.2 0 0 1 1.2-1.2z"></path>
+                                        <path d="M12 18.6v2.4"></path>
+                                        <path d="M8.4 21h7.2"></path>
+                                    </svg>
+                                </div>
+                                <div class="carrito-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Estado:</span>
+                                        <span class="detail-value estado-text">Disponible</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Última actualización:</span>
+                                        <span class="detail-value">Ahora</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="admin-buttons">
+                                <button class="cambiar-estado" data-action="ocupar">
+                                    <span class="btn-text">Marcar como Ocupado</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                        <path d="M12 8v4"></path>
+                                        <path d="M12 16h.01"></path>
+                                    </svg>
+                                </button>
+                                <button class="cambiar-estado reservar" data-action="reservar">
+                                    <span class="btn-text">Reservar</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M12 6v6l4 2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carrito-admin" data-id="5" data-status="libre">
+                    <div class="carrito-inner">
+                        <div class="carrito-front">
+                            <div class="carrito-header">
+                                <div class="carrito-numero">Carrito 5</div>
+                                <div class="status-badge">
+                                    <span class="estado">Libre</span>
+                                </div>
+                            </div>
+                            <div class="carrito-content">
+                                <div class="carrito-icon">
+                                    <svg class="icon-libre" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3.6 3.6h16.8a1.2 1.2 0 0 1 1.2 1.2v10.8a1.2 1.2 0 0 1-1.2 1.2H3.6a1.2 1.2 0 0 1-1.2-1.2V4.8a1.2 1.2 0 0 1 1.2-1.2z"></path>
+                                        <path d="M12 18.6v2.4"></path>
+                                        <path d="M8.4 21h7.2"></path>
+                                    </svg>
+                                </div>
+                                <div class="carrito-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Estado:</span>
+                                        <span class="detail-value estado-text">Disponible</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Última actualización:</span>
+                                        <span class="detail-value">Ahora</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="admin-buttons">
+                                <button class="cambiar-estado" data-action="ocupar">
+                                    <span class="btn-text">Marcar como Ocupado</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                        <path d="M12 8v4"></path>
+                                        <path d="M12 16h.01"></path>
+                                    </svg>
+                                </button>
+                                <button class="cambiar-estado reservar" data-action="reservar">
+                                    <span class="btn-text">Reservar</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M12 6v6l4 2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carrito-admin" data-id="6" data-status="libre">
+                    <div class="carrito-inner">
+                        <div class="carrito-front">
+                            <div class="carrito-header">
+                                <div class="carrito-numero">Carrito 6</div>
+                                <div class="status-badge">
+                                    <span class="estado">Libre</span>
+                                </div>
+                            </div>
+                            <div class="carrito-content">
+                                <div class="carrito-icon">
+                                    <svg class="icon-libre" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3.6 3.6h16.8a1.2 1.2 0 0 1 1.2 1.2v10.8a1.2 1.2 0 0 1-1.2 1.2H3.6a1.2 1.2 0 0 1-1.2-1.2V4.8a1.2 1.2 0 0 1 1.2-1.2z"></path>
+                                        <path d="M12 18.6v2.4"></path>
+                                        <path d="M8.4 21h7.2"></path>
+                                    </svg>
+                                </div>
+                                <div class="carrito-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Estado:</span>
+                                        <span class="detail-value estado-text">Disponible</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Última actualización:</span>
+                                        <span class="detail-value">Ahora</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="admin-buttons">
+                                <button class="cambiar-estado" data-action="ocupar">
+                                    <span class="btn-text">Marcar como Ocupado</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                        <path d="M12 8v4"></path>
+                                        <path d="M12 16h.01"></path>
+                                    </svg>
+                                </button>
+                                <button class="cambiar-estado reservar" data-action="reservar">
+                                    <span class="btn-text">Reservar</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M12 6v6l4 2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="back-link animate__animated animate__fadeIn animate__delay-3s">
+                <a href="index.html" class="btn-back">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Volver a la página principal
+                </a>
+            </div>
+        </div>
+        
+        <footer class="site-footer animate__animated animate__fadeInUp">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_ysas4vcp.json" background="transparent" speed="1" style="width: 40px; height: 40px;" loop autoplay></lottie-player>
+                    <span>Sistema de Gestión</span>
+                </div>
+                <div class="footer-info">
+                    <p>Desarrollado por CooodeLab  <span class="heart">❤</span></p>
+                    <p class="copyright">© 2025 Todos los derechos reservados</p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://github.com/Codeeelab" class="social-icon" aria-label="GitHub">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon" aria-label="Twitter">
+                        <svg xmlns="https://x.com/CooodeLab?t=Soz7rCClUI-1G4GuhxzLww&s=08" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon" aria-label="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</body>
+</html>
+
